@@ -4,8 +4,13 @@ import com.example.demo.security.JwtUtil;
 import com.example.demo.dto.ErrorRes;
 import com.example.demo.dto.LoginReq;
 import com.example.demo.dto.LoginRes;
+import com.example.demo.entities.Carro;
 import com.example.demo.entities.User;
+import com.example.demo.repositories.CarroRepository;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -51,4 +56,15 @@ public class AuthController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
 		}
 	}
+	
+	@Autowired
+	CarroRepository carroRepository;
+
+	@GetMapping("/carros")
+	public List<Carro> getCarroAll() {
+
+		List<Carro> carros = carroRepository.findAll();
+		return carros;
+	}
+	
 }
